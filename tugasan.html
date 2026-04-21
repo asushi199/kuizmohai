@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tugasan &amp; Pensijilan — DELIMa &amp; NotebookLM</title>
+  <meta name="description" content="Tugasan 1: DELIMa &amp; NotebookLM. Tugasan 2: pilih satu kuiz (BM / BI / Matematik / Sejarah) untuk sijil." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Crimson Pro"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: { parchment: '#fdfbf7' },
+        },
+      },
+    };
+  </script>
+  <style>
+    details.task-acc > summary {
+      list-style: none;
+    }
+    details.task-acc > summary::-webkit-details-marker {
+      display: none;
+    }
+    details.task-acc-gate-locked {
+      border-color: #e2e8f0 !important;
+      background: #f8fafc !important;
+      box-shadow: none;
+    }
+    details.task-acc-gate-locked > summary {
+      pointer-events: none;
+      cursor: not-allowed;
+      opacity: 0.88;
+    }
+    details.task-acc-gate-open {
+      border-color: #fcd34d !important;
+      background: linear-gradient(to bottom, #fffbeb, #fff) !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+    details.task-acc-gate-open > summary {
+      cursor: pointer;
+    }
+    .delima-cta-glow {
+      box-shadow: 0 4px 24px rgba(30, 58, 138, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    }
+  </style>
+  <!--
+    KONFIGURASI (skrip di bawah): DELIMA_TEACHER_URL, SCREENSHOT_UPLOAD_WEBAPP_URL (URL /exec Apps Script — lihat screenshot-upload-drive.example.gs).
+    PREVIEW_LEADER — true = buka Tugasan 2 untuk semakan (tanpa T1). Selepas semakan ketua: false.
+    Peperiksaan: kuiz-subjek.html?s=… — URL Apps Script dalam fail itu.
+  -->
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+  <div class="min-h-screen">
+    <div class="border-b border-amber-200/80 bg-parchment/95 backdrop-blur-sm">
+      <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3 text-sm">
+        <a href="index.html" class="font-medium text-amber-900 underline decoration-amber-400 underline-offset-4 hover:text-amber-950">← Kembali ke laman utama</a>
+        <span class="text-slate-600">Tugasan pensijilan</span>
+      </div>
+    </div>
+
+    <main class="mx-auto max-w-3xl px-4 pb-20 pt-10 sm:pt-14">
+      <header class="text-center">
+        <p class="text-xs font-semibold uppercase tracking-wider text-amber-700">DELIMa 2.0 &amp; NotebookLM</p>
+        <h1 class="mt-2 font-serif text-3xl font-bold text-slate-900 sm:text-4xl">Tugasan &amp; kuiz pensijilan</h1>
+        <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-600">
+          <strong class="text-slate-800">Tugasan 1:</strong> buka DELIMa, gunakan NotebookLM, muat naik tangkapan skrin.
+          <strong class="text-slate-800">Tugasan 2:</strong> pilih <em>satu</em> kuiz; lulus <em>mana-mana satu</em> untuk menerima sijil.
+        </p>
+      </header>
+
+      <div class="mx-auto mt-12 max-w-3xl space-y-5">
+        <!-- Tugasan 1 -->
+        <details id="t1-acc" class="task-acc group rounded-2xl border border-amber-100 bg-white p-4 shadow-sm open:shadow-md sm:p-6" open>
+          <summary class="flex cursor-pointer list-none items-center gap-3 rounded-lg px-1 py-2 text-left transition hover:bg-amber-50/50 focus:outline-none focus:ring-2 focus:ring-amber-500/40">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-600 text-sm font-bold text-white">1</span>
+            <span class="min-w-0 flex-1">
+              <span class="font-serif text-lg font-bold text-slate-900 sm:text-xl">DELIMa → AI Tools → NotebookLM</span>
+              <span id="t1-sub" class="mt-0.5 block text-xs text-slate-500">Ikut langkah, kemudian muat naik tangkapan skrin</span>
+            </span>
+            <span id="t1-badge" class="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600">Langkah</span>
+          </summary>
+          <div class="mt-4 border-t border-amber-100/80 pt-5 space-y-6">
+            <ol class="list-decimal space-y-2 pl-5 text-sm text-slate-700">
+              <li>Tekan butang biru di bawah untuk buka <strong class="text-slate-900">laman guru DELIMa</strong> (log masuk jika perlu).</li>
+              <li>Dalam portal, buka <strong class="text-slate-900">AI Tools</strong>, kemudian pilih <strong class="text-slate-900">NotebookLM</strong>.</li>
+              <li>Ambil <strong class="text-slate-900">tangkapan skrin</strong> yang menunjukkan NotebookLM dibuka (satu imej mencukupi).</li>
+              <li>Kembali ke halaman ini dan <strong class="text-slate-900">muat naik</strong> imej tersebut, kemudian tekan <em>Hantar</em>.</li>
+            </ol>
+
+            <div class="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center">
+              <a
+                id="link-delima-teacher"
+                href="https://d2.delima.edu.my/teacher"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="delima-cta-glow inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 px-8 py-4 text-base font-bold text-white transition hover:scale-[1.02] hover:from-blue-600 hover:to-indigo-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+              >
+                <svg class="h-6 w-6 shrink-0 opacity-95" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                Buka laman guru DELIMa
+              </a>
+            </div>
+            <p class="text-center text-xs text-slate-500">Pautan rasmi: <span class="font-mono text-slate-600">d2.delima.edu.my</span> — buka dalam tab baharu.</p>
+
+            <div class="rounded-xl border border-slate-200 bg-slate-50/80 p-4 sm:p-5">
+              <p class="text-sm font-medium text-slate-800">Muat naik tangkapan skrin</p>
+              <p id="upload-hint" class="mt-1 text-xs text-slate-500">
+                Format: JPG, PNG atau WebP. Saiz maks. 5&nbsp;MB.
+              </p>
+              <input type="file" id="shot-input" accept="image/jpeg,image/png,image/webp" class="mt-3 block w-full text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-amber-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-amber-700" />
+              <div id="shot-preview-wrap" class="mt-3 hidden">
+                <p class="text-xs font-medium text-slate-600">Pratonton</p>
+                <img id="shot-preview" alt="Pratonton tangkapan skrin" class="mt-2 max-h-48 w-auto max-w-full rounded-lg border border-slate-200 shadow-sm" />
+              </div>
+              <p id="upload-msg" class="mt-3 hidden text-sm font-medium text-emerald-800"></p>
+              <p id="upload-err" class="mt-3 hidden text-sm font-medium text-red-700"></p>
+              <button
+                type="button"
+                id="btn-upload-submit"
+                class="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-amber-600 px-5 py-3 text-sm font-semibold text-white shadow transition hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                disabled
+              >
+                Hantar tangkapan skrin
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- Tugasan 2 -->
+        <details id="t2-acc" class="task-acc rounded-2xl border border-dashed border-slate-200 bg-slate-50/90 p-4 sm:p-6">
+          <summary class="flex cursor-pointer list-none items-center gap-3 rounded-lg px-1 py-2 text-left transition hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-amber-500/30">
+            <span id="t2-num" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-slate-300 bg-white text-sm font-bold text-slate-500">2</span>
+            <span class="min-w-0 flex-1">
+              <span class="font-serif text-lg font-bold text-slate-900 sm:text-xl">Kuiz pensijilan (pilih satu)</span>
+              <span id="t2-sub" class="mt-0.5 block text-xs text-slate-500">Terkunci — lengkapkan Tugasan 1</span>
+            </span>
+            <span id="t2-badge" class="shrink-0 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-600">Terkunci</span>
+          </summary>
+          <div class="mt-4 border-t border-slate-200/80 pt-5">
+            <p class="text-sm text-slate-700">
+              Pilih <strong>satu</strong> kuiz di bawah. Selepas <strong>lulus</strong>, sijil dikeluarkan melalui halaman peperiksaan subjek tersebut.
+            </p>
+            <!-- Paparan ringkas 4 kuiz — boleh gantikan dengan modul / iframe sebenar kemudian -->
+            <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+              <a
+                href="kuiz-subjek.html?s=bm"
+                class="inline-flex min-h-[3.25rem] items-center justify-center rounded-xl border border-sky-700/30 bg-sky-700 px-3 py-3 text-center text-sm font-bold text-white shadow-md transition hover:bg-sky-800 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+                >Kuiz BM</a>
+              <a
+                href="kuiz-subjek.html?s=bi"
+                class="inline-flex min-h-[3.25rem] items-center justify-center rounded-xl border border-violet-800/30 bg-violet-700 px-3 py-3 text-center text-sm font-bold text-white shadow-md transition hover:bg-violet-800 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+                >Kuiz BI</a>
+              <a
+                href="kuiz-subjek.html?s=mat"
+                class="inline-flex min-h-[3.25rem] items-center justify-center rounded-xl border border-emerald-800/30 bg-emerald-700 px-3 py-3 text-center text-sm font-bold text-white shadow-md transition hover:bg-emerald-800 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                >Kuiz Matematik</a>
+              <a
+                href="kuiz-subjek.html?s=sejarah"
+                class="inline-flex min-h-[3.25rem] items-center justify-center rounded-xl border border-amber-800/30 bg-amber-600 px-3 py-3 text-center text-sm font-bold text-white shadow-md transition hover:bg-amber-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                >Kuiz Sejarah</a>
+            </div>
+          </div>
+        </details>
+      </div>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+      <p class="mx-auto max-w-lg px-4">Sijil dikeluarkan oleh aplikasi web kuiz (Apps Script) bagi subjek yang anda lulus — bukan daripada halaman statik ini.</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var DELIMA_TEACHER_URL = 'https://d2.delima.edu.my/teacher';
+
+      var STORAGE_T1 = 'webinar_tugasan_delima_screenshot_v1';
+      var MAX_BYTES = 5 * 1024 * 1024;
+      /**
+       * Semakan ketua: true = Tugasan 2 dibuka tanpa siapkan Tugasan 1 (4 butang kuiz kelihatan).
+       * Selepas semakan: tukar kepada false — peserta mesti lengkapkan Tugasan 1 dahulu.
+       */
+      var PREVIEW_LEADER = false;
+
+      function lsGet(k) {
+        try {
+          return localStorage.getItem(k);
+        } catch (e) {
+          return null;
+        }
+      }
+      function lsSet(k, v) {
+        try {
+          localStorage.setItem(k, v);
+        } catch (e) {}
+      }
+
+      function tugasan1Disimpan() {
+        return lsGet(STORAGE_T1) === '1';
+      }
+      function bolehBukaTugasan2() {
+        return PREVIEW_LEADER || tugasan1Disimpan();
+      }
+
+      var acc2 = document.getElementById('t2-acc');
+      var badge1 = document.getElementById('t1-badge');
+      var badge2 = document.getElementById('t2-badge');
+      var sub2 = document.getElementById('t2-sub');
+      var num2 = document.getElementById('t2-num');
+      var linkDelima = document.getElementById('link-delima-teacher');
+      var shotInput = document.getElementById('shot-input');
+      var shotPrevWrap = document.getElementById('shot-preview-wrap');
+      var shotPreview = document.getElementById('shot-preview');
+      var btnSubmit = document.getElementById('btn-upload-submit');
+      var uploadMsg = document.getElementById('upload-msg');
+      var uploadErr = document.getElementById('upload-err');
+
+      if (linkDelima) linkDelima.href = DELIMA_TEACHER_URL;
+
+      function bindDetailsGate(el) {
+        if (!el || el.__gateBound) return;
+        el.__gateBound = true;
+        el.addEventListener('toggle', function () {
+          if (el.getAttribute('data-locked') === '1' && el.open) el.open = false;
+        });
+      }
+      bindDetailsGate(acc2);
+
+      function applyGating() {
+        var t1simpan = tugasan1Disimpan();
+        var t2buka = bolehBukaTugasan2();
+        if (badge1) {
+          if (PREVIEW_LEADER && !t1simpan) {
+            badge1.textContent = 'Pratonton';
+            badge1.classList.remove('border-emerald-200', 'bg-emerald-50', 'text-emerald-800');
+            badge1.classList.add('border-amber-300', 'bg-amber-50', 'text-amber-900');
+          } else {
+            badge1.textContent = t1simpan ? 'Selesai' : 'Langkah';
+            badge1.classList.toggle('border-emerald-200', t1simpan);
+            badge1.classList.toggle('bg-emerald-50', t1simpan);
+            badge1.classList.toggle('text-emerald-800', t1simpan);
+            badge1.classList.remove('border-amber-300', 'bg-amber-50', 'text-amber-900');
+          }
+        }
+        if (badge2) {
+          badge2.textContent = t2buka ? 'Dibuka' : 'Terkunci';
+          badge2.classList.toggle('border-amber-200', t2buka);
+          badge2.classList.toggle('bg-amber-50', t2buka);
+          badge2.classList.toggle('text-amber-800', t2buka);
+        }
+        if (sub2) {
+          sub2.textContent = t2buka ? 'Pilih satu kuiz' : 'Terkunci — lengkapkan Tugasan 1';
+        }
+        if (num2) {
+          num2.classList.toggle('border-amber-500', t2buka);
+          num2.classList.toggle('bg-amber-50', t2buka);
+          num2.classList.toggle('text-amber-800', t2buka);
+        }
+        if (acc2) {
+          acc2.classList.remove('task-acc-gate-locked', 'task-acc-gate-open');
+          if (!t2buka) {
+            acc2.setAttribute('data-locked', '1');
+            acc2.classList.add('task-acc-gate-locked');
+            acc2.open = false;
+          } else {
+            acc2.removeAttribute('data-locked');
+            acc2.classList.add('task-acc-gate-open');
+          }
+        }
+      }
+
+      function unlockLocal(okMsg) {
+        lsSet(STORAGE_T1, '1');
+        if (uploadMsg) {
+          uploadMsg.textContent = okMsg;
+          uploadMsg.classList.remove('hidden');
+        }
+        if (uploadErr) uploadErr.classList.add('hidden');
+        applyGating();
+        if (acc2 && acc2.getAttribute('data-locked') !== '1') acc2.open = true;
+        if (shotInput) shotInput.disabled = true;
+        if (btnSubmit) btnSubmit.disabled = true;
+      }
+
+      function showErr(msg) {
+        if (uploadErr) {
+          uploadErr.textContent = msg;
+          uploadErr.classList.remove('hidden');
+        }
+        if (uploadMsg) uploadMsg.classList.add('hidden');
+      }
+      function hideErr() {
+        if (uploadErr) uploadErr.classList.add('hidden');
+      }
+
+      function onFileChange() {
+        hideErr();
+        if (uploadMsg) uploadMsg.classList.add('hidden');
+        var f = shotInput && shotInput.files && shotInput.files[0];
+        if (!f) {
+          if (btnSubmit) btnSubmit.disabled = true;
+          if (shotPrevWrap) shotPrevWrap.classList.add('hidden');
+          return;
+        }
+        if (f.size > MAX_BYTES) {
+          showErr('Fail terlalu besar. Maksimum 5 MB.');
+          if (btnSubmit) btnSubmit.disabled = true;
+          return;
+        }
+        if (btnSubmit) btnSubmit.disabled = false;
+        var reader = new FileReader();
+        reader.onload = function () {
+          if (shotPreview) shotPreview.src = reader.result;
+          if (shotPrevWrap) shotPrevWrap.classList.remove('hidden');
+        };
+        reader.readAsDataURL(f);
+      }
+
+      if (shotInput) shotInput.addEventListener('change', onFileChange);
+
+      if (btnSubmit) {
+        btnSubmit.addEventListener('click', function () {
+          hideErr();
+          var f = shotInput && shotInput.files && shotInput.files[0];
+          if (!f) {
+            showErr('Sila pilih fail imej.');
+            return;
+          }
+          if (f.size > MAX_BYTES) {
+            showErr('Fail terlalu besar.');
+            return;
+          }
+
+          unlockLocal('Tugasan 1 selesai. Tugasan 2 dibuka.');
+        });
+      }
+
+      if (tugasan1Disimpan()) {
+        if (shotInput) shotInput.disabled = true;
+        if (btnSubmit) btnSubmit.disabled = true;
+        if (uploadMsg) {
+          uploadMsg.textContent = 'Tugasan 1 sudah selesai.';
+          uploadMsg.classList.remove('hidden');
+        }
+      }
+
+      applyGating();
+    })();
+  </script>
+</body>
+</html>
