@@ -336,10 +336,12 @@
           }
 
           if (!endpoint) {
-            unlockLocal('Disimpan. Tugasan 2 dibuka (tiada pelayan muat naik — imej kekal pada peranti anda).');
+            unlockLocal(
+              'Tugasan 1 direkod sebagai lengkap. Tugasan 2 kini boleh diakses — sila pilih satu kuiz pensijilan (BM, BI, Matematik atau Sejarah).'
+            );
             if (uploadHint) {
               uploadHint.textContent =
-                'Format: JPG, PNG atau WebP. Saiz maksimum 5 MB. Selepas hantar berjaya, anda boleh meneruskan ke Tugasan 2.';
+                'Format: JPG, PNG atau WebP. Saiz maksimum 5 MB. Gunakan bahagian Tugasan 2 di bawah untuk meneruskan pensijilan.';
             }
             return;
           }
@@ -385,10 +387,14 @@
                   return;
                 }
                 if (j.fileId) {
-                  unlockLocal('Berjaya dihantar ke Drive. Tugasan 2 dibuka.');
+                  unlockLocal(
+                    'Tangkapan skrin telah disimpan. Sila teruskan ke Tugasan 2 — pilih satu kuiz pensijilan (BM, BI, Matematik atau Sejarah).'
+                  );
                   return;
                 }
-                unlockLocal('Hantaran diterima oleh pelayan. Tugasan 2 dibuka.');
+                unlockLocal(
+                  'Tugasan 1 telah direkod. Sila teruskan ke Tugasan 2 — pilih satu kuiz pensijilan (BM, BI, Matematik atau Sejarah).'
+                );
               })
               .catch(function () {
                 showErr('Rangkaian / CORS: muat naik tidak tersambung. Semak deployment Apps Script atau gunakan mod tanpa URL.');
@@ -409,7 +415,8 @@
         if (shotInput) shotInput.disabled = true;
         if (btnSubmit) btnSubmit.disabled = true;
         if (uploadMsg) {
-          uploadMsg.textContent = 'Tugasan 1 sudah lengkap pada pelayar ini.';
+          uploadMsg.textContent =
+            'Tugasan 1 telah selesai untuk sesi semasa. Sila teruskan ke Tugasan 2 — pilih satu kuiz pensijilan.';
           uploadMsg.classList.remove('hidden');
         }
       }
