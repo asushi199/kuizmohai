@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <!-- Pentadbir: set KUIZ_URL_BY_SUBJECT dalam <script> di bawah (URL /exec setiap subjek). -->
+  <!-- Pentadbir: set KUIZ_URL_BY_SUBJECT (URL /exec asas). Skrip tambah ?s= pada URL iframe/tab baharu. -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kuiz pensijilan</title>
@@ -21,7 +21,7 @@
   </script>
 </head>
 <body class="font-sans bg-slate-50 text-slate-800 antialiased">
-  <div class="min-h-screen border-b border-amber-200/80 bg-parchment/95">
+  <div class="border-b border-amber-200/80 bg-parchment/95">
     <div class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-4 py-3 text-sm">
       <a href="tugasan.html" class="font-medium text-amber-900 underline decoration-amber-400 underline-offset-4 hover:text-amber-950">← Kembali ke Tugasan</a>
     </div>
@@ -79,18 +79,21 @@
           'Lengkapkan peperiksaan di halaman ini. Selepas lulus, sijil akan dijana mengikut aliran pentadbiran (e-mel atau cetak).';
       }
 
-      var url = (KUIZ_URL_BY_SUBJECT[s] || '').trim();
+      var base = (KUIZ_URL_BY_SUBJECT[s] || '').trim();
+      var sep = base.indexOf('?') === -1 ? '?' : '&';
+      var url = base ? base + sep + 's=' + encodeURIComponent(s) : '';
       if (url && mount) {
+        var esc = url.replace(/"/g, '&quot;');
         mount.innerHTML =
           '<div class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-inner">' +
           '<iframe title="Kuiz ' +
           label.replace(/"/g, '') +
           '" class="min-h-[720px] w-full border-0 sm:min-h-[780px]" src="' +
-          url.replace(/"/g, '&quot;') +
+          esc +
           '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>' +
           '</div>' +
           '<p class="mt-4 text-center text-sm"><a href="' +
-          url.replace(/"/g, '&quot;') +
+          esc +
           '" target="_blank" rel="noopener noreferrer" class="font-medium text-amber-800 underline decoration-amber-400 underline-offset-4 hover:text-amber-950">Buka kuiz di tab baharu</a> jika bingkai tidak memuat.</p>';
       } else if (mount) {
         mount.innerHTML =
