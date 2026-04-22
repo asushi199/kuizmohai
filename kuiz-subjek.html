@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <!-- Pentadbir: set KUIZ_URL_BY_SUBJECT dalam <script> di bawah (URL /exec setiap subjek). -->
+  <!-- Pentadbir: set KUIZ_URL_BY_SUBJECT (URL /exec asas). Skrip tambah ?s=bm|bi|mat|sejarah secara automatik. -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kuiz pensijilan</title>
@@ -21,13 +21,13 @@
   </script>
 </head>
 <body class="font-sans bg-slate-50 text-slate-800 antialiased">
-  <div class="border-b border-amber-200/80 bg-parchment/95">
+  <div class="min-h-screen border-b border-amber-200/80 bg-parchment/95">
     <div class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-4 py-3 text-sm">
       <a href="tugasan.html" class="font-medium text-amber-900 underline decoration-amber-400 underline-offset-4 hover:text-amber-950">← Kembali ke Tugasan</a>
     </div>
   </div>
 
-  <main class="mx-auto max-w-4xl px-4 pb-12 pt-4">
+  <main class="mx-auto max-w-4xl px-4 pb-16 pt-8">
     <header class="border-b border-slate-200 pb-6">
       <p class="text-xs font-semibold uppercase tracking-wider text-amber-700">Tugasan 2 — pensijilan</p>
       <h1 id="subjek-title" class="mt-2 font-serif text-2xl font-bold text-slate-900 sm:text-3xl">—</h1>
@@ -79,21 +79,53 @@
           'Lengkapkan peperiksaan di halaman ini. Selepas lulus, sijil akan dijana mengikut aliran pentadbiran (e-mel atau cetak).';
       }
 
-      var url = (KUIZ_URL_BY_SUBJECT[s] || '').trim();
+      var base = (KUIZ_URL_BY_SUBJECT[s] || '').trim();
+      /** URL penuh ke Web App — wajib ada ?s= supaya subjek betul (lihat Code.gs doGet). */
+      var sep = base.indexOf('?') === -1 ? '?' : '&';
+      var url = base ? base + sep + 's=' + encodeURIComponent(s) : '';
+
+      function accountChooserUrl(target) {
+        return (
+          'https://accounts.google.com/AccountChooser?continue=' + encodeURIComponent(target)
+        );
+      }
+
       if (url && mount) {
-        var sep = url.indexOf('?') >= 0 ? '&' : '?';
-        var urlWithSubjek = url + sep + 's=' + encodeURIComponent(s);
+        var esc = url.replace(/"/g, '&quot;');
+        var chooser = accountChooserUrl(url);
+        var chooserEsc = chooser.replace(/"/g, '&quot;');
         mount.innerHTML =
+          '<div class="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50/90 p-4 sm:p-5">' +
+          '<p class="text-sm font-semibold text-emerald-950">Cara mudah (telefon / berbilang akaun Gmail)</p>' +
+          '<ol class="mt-2 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-emerald-900">' +
+          '<li>Tekan <strong>butang hijau</strong> di bawah.</li>' +
+          '<li>Pilih akaun <strong>@moe-dl.edu.my</strong> (akaun sekolah) pada skrin Google.</li>' +
+          '<li>Kuiz akan dibuka — jawab seperti biasa.</li>' +
+          '</ol>' +
+          '<a href="' +
+          chooserEsc +
+          '" class="mt-4 flex w-full items-center justify-center rounded-xl bg-emerald-600 px-5 py-4 text-center text-base font-bold text-white shadow-md transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">' +
+          'Pilih akaun Google &amp; buka kuiz' +
+          '</a>' +
+          '<p class="mt-3 text-xs text-emerald-800/90">Jika akaun sekolah sudah dipilih betul dalam pelayar, anda boleh terus guna paparan di bawah atau tab baharu.</p>' +
+          '</div>' +
           '<div class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-inner">' +
           '<iframe title="Kuiz ' +
           label.replace(/"/g, '') +
-          '" class="min-h-[480px] w-full border-0 sm:min-h-[560px]" src="' +
-          urlWithSubjek.replace(/"/g, '&quot;') +
+          '" class="min-h-[720px] w-full border-0 sm:min-h-[780px]" src="' +
+          esc +
           '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>' +
           '</div>' +
-          '<p class="mt-4 text-center text-sm"><a href="' +
-          urlWithSubjek.replace(/"/g, '&quot;') +
-          '" target="_blank" rel="noopener noreferrer" class="font-medium text-amber-800 underline decoration-amber-400 underline-offset-4 hover:text-amber-950">Buka kuiz di tab baharu</a> jika bingkai tidak memuat.</p>';
+          '<p class="mt-4 flex flex-col items-center gap-2 text-center text-sm sm:flex-row sm:justify-center">' +
+          '<a href="' +
+          chooserEsc +
+          '" class="font-medium text-emerald-800 underline decoration-emerald-400 underline-offset-4 hover:text-emerald-950">Buka semula pemilih akaun</a>' +
+          '<span class="hidden text-slate-300 sm:inline">·</span>' +
+          '<a href="' +
+          esc +
+          '" target="_blank" rel="noopener noreferrer" class="font-medium text-amber-800 underline decoration-amber-400 underline-offset-4 hover:text-amber-950">Buka kuiz di tab baharu</a>' +
+          '</p>' +
+          '<p class="mt-1 text-center text-xs text-slate-500">Jika bingkai kosong atau ralat, gunakan butang hijau atau tab baharu.</p>';
       } else if (mount) {
         mount.innerHTML =
           '<div class="flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-slate-300 bg-slate-50/80 px-6 py-16 text-center">' +

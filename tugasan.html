@@ -115,7 +115,7 @@
             <div class="rounded-xl border border-slate-200 bg-slate-50/80 p-4 sm:p-5">
               <p class="text-sm font-medium text-slate-800">Muat naik tangkapan skrin</p>
               <p id="upload-hint" class="mt-1 text-xs text-slate-500">
-                Format: JPG, PNG atau WebP. Saiz maks. 5&nbsp;MB.
+                Format: JPG, PNG atau WebP. Saiz maks. 5&nbsp;MB. Status siap Tugasan 1 disimpan pada pelayar anda (localStorage). URL Apps Script jika diset hanya untuk pengesahan hantaran — fail tidak disimpan di Drive.
               </p>
               <input type="file" id="shot-input" accept="image/jpeg,image/png,image/webp" class="mt-3 block w-full text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-amber-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-amber-700" />
               <div id="shot-preview-wrap" class="mt-3 hidden">
@@ -150,6 +150,10 @@
             <p class="text-sm text-slate-700">
               Pilih <strong>satu</strong> kuiz di bawah. Selepas <strong>lulus</strong>, sijil dikeluarkan melalui halaman peperiksaan subjek tersebut.
             </p>
+            <p class="mt-2 rounded-lg border border-emerald-100 bg-emerald-50/80 px-3 py-2 text-xs leading-relaxed text-emerald-900">
+              <strong>Telefon / banyak akaun Google:</strong> selepas buka halaman kuiz, gunakan
+              <strong> butang hijau «Pilih akaun Google &amp; buka kuiz»</strong> di atas bingkai supaya akaun <strong>@moe-dl.edu.my</strong> dipilih dahulu.
+            </p>
             <!-- Paparan ringkas 4 kuiz — boleh gantikan dengan modul / iframe sebenar kemudian -->
             <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
               <a
@@ -182,6 +186,11 @@
   <script>
     (function () {
       var DELIMA_TEACHER_URL = 'https://d2.delima.edu.my/teacher';
+      /**
+       * URL /exec Web App (doPost) — pilihan; hantar JSON untuk log / pengesahan ringkas (tiada simpanan Drive dalam projek ini).
+       * Kosongkan = lengkapkan Tugasan 1 pada peranti sahaja (localStorage).
+       */
+      var SCREENSHOT_UPLOAD_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyrgXG38D1TMPWyDKmnJZYMgHvLGBVTNPZQzLUaxGfUOLkUKn8KNVfQ41DGY23D4tYq/exec';
 
       var STORAGE_T1 = 'webinar_tugasan_delima_screenshot_v1';
       var MAX_BYTES = 5 * 1024 * 1024;
@@ -189,7 +198,7 @@
        * Semakan ketua: true = Tugasan 2 dibuka tanpa siapkan Tugasan 1 (4 butang kuiz kelihatan).
        * Selepas semakan: tukar kepada false — peserta mesti lengkapkan Tugasan 1 dahulu.
        */
-      var PREVIEW_LEADER = false;
+      var PREVIEW_LEADER = true;
 
       function lsGet(k) {
         try {
@@ -223,6 +232,7 @@
       var btnSubmit = document.getElementById('btn-upload-submit');
       var uploadMsg = document.getElementById('upload-msg');
       var uploadErr = document.getElementById('upload-err');
+      var uploadHint = document.getElementById('upload-hint');
 
       if (linkDelima) linkDelima.href = DELIMA_TEACHER_URL;
 
@@ -278,19 +288,6 @@
         }
       }
 
-      function unlockLocal(okMsg) {
-        lsSet(STORAGE_T1, '1');
-        if (uploadMsg) {
-          uploadMsg.textContent = okMsg;
-          uploadMsg.classList.remove('hidden');
-        }
-        if (uploadErr) uploadErr.classList.add('hidden');
-        applyGating();
-        if (acc2 && acc2.getAttribute('data-locked') !== '1') acc2.open = true;
-        if (shotInput) shotInput.disabled = true;
-        if (btnSubmit) btnSubmit.disabled = true;
-      }
-
       function showErr(msg) {
         if (uploadErr) {
           uploadErr.textContent = msg;
@@ -340,7 +337,84 @@
             return;
           }
 
-          unlockLocal('Tugasan 1 selesai. Tugasan 2 dibuka.');
+          var endpoint = (SCREENSHOT_UPLOAD_WEBAPP_URL || '').trim();
+          function unlockLocal(okMsg) {
+            lsSet(STORAGE_T1, '1');
+            if (uploadMsg) {
+              uploadMsg.textContent = okMsg;
+              uploadMsg.classList.remove('hidden');
+            }
+            applyGating();
+            if (acc2 && acc2.getAttribute('data-locked') !== '1') acc2.open = true;
+          }
+
+          if (!endpoint) {
+            unlockLocal('Disimpan. Tugasan 2 dibuka (tiada pelayan muat naik — imej kekal pada peranti anda).');
+            if (uploadHint) {
+              uploadHint.textContent =
+                'Tip pentadbir: sambungkan SCREENSHOT_UPLOAD_WEBAPP_URL jika mahu pelayan mengesahkan POST (tiada simpanan Drive).';
+            }
+            return;
+          }
+
+          btnSubmit.disabled = true;
+          var rdr = new FileReader();
+          rdr.onloadend = function () {
+            var dataUrl = rdr.result || '';
+            var i = typeof dataUrl === 'string' ? dataUrl.indexOf(',') : -1;
+            var b64 = i >= 0 ? dataUrl.slice(i + 1) : '';
+            if (!b64) {
+              showErr('Tidak dapat membaca fail imej.');
+              btnSubmit.disabled = !f || f.size > MAX_BYTES;
+              return;
+            }
+            var payload = JSON.stringify({
+              mime: f.type || 'image/png',
+              name: f.name || 'screenshot.png',
+              data: b64,
+            });
+            fetch(endpoint, {
+              method: 'POST',
+              mode: 'cors',
+              headers: { 'Content-Type': 'application/json;charset=utf-8' },
+              body: payload,
+            })
+              .then(function (r) {
+                return r.text().then(function (t) {
+                  return { ok: r.ok, text: t };
+                });
+              })
+              .then(function (res) {
+                var j = null;
+                try {
+                  j = JSON.parse(res.text);
+                } catch (e2) {}
+                if (j && j.ok === false) {
+                  showErr(j.error || 'Pelayan menolak permintaan.');
+                  return;
+                }
+                if (!j || j.ok !== true) {
+                  showErr('Respons pelayan tidak sah. Cuba lagi atau hubungi pentadbir.');
+                  return;
+                }
+                if (j.fileId) {
+                  unlockLocal('Berjaya dihantar ke Drive. Tugasan 2 dibuka.');
+                  return;
+                }
+                unlockLocal('Hantaran diterima oleh pelayan. Tugasan 2 dibuka.');
+              })
+              .catch(function () {
+                showErr('Rangkaian / CORS: muat naik tidak tersambung. Semak deployment Apps Script atau gunakan mod tanpa URL.');
+              })
+              .finally(function () {
+                btnSubmit.disabled = !f || f.size > MAX_BYTES;
+              });
+          };
+          rdr.onerror = function () {
+            showErr('Tidak dapat membaca fail.');
+            btnSubmit.disabled = !f || f.size > MAX_BYTES;
+          };
+          rdr.readAsDataURL(f);
         });
       }
 
@@ -348,7 +422,7 @@
         if (shotInput) shotInput.disabled = true;
         if (btnSubmit) btnSubmit.disabled = true;
         if (uploadMsg) {
-          uploadMsg.textContent = 'Tugasan 1 sudah selesai.';
+          uploadMsg.textContent = 'Tugasan 1 sudah lengkap pada pelayar ini.';
           uploadMsg.classList.remove('hidden');
         }
       }
