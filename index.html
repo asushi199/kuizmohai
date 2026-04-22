@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NotebookLM untuk Guru Sejarah (Sekolah Rendah &amp; Menengah)</title>
   <meta name="description" content="Pembantu pintar peribadi untuk Guru Sejarah SR &amp; SM — jimat masa, soalan aras tinggi &amp; KBAT, sokong PdPc digital." />
-  <!-- Google Fonts: Crimson Pro (tajuk), Inter (teks) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -27,7 +26,6 @@
     };
   </script>
   <style>
-    /* Video rujukan (#contoh-video): paparan lebih besar pada skrin kecil */
     .task1-video-frame {
       position: relative;
       width: 100%;
@@ -46,31 +44,26 @@
       border-radius: 0.75rem;
     }
   </style>
-  <!--
-    KONFIGURASI: tugasan & kuiz pensijilan ada di tugasan.html (URL DELIMa, muat naik skrin, empat pautan kuiz).
-    Video rujukan NotebookLM: sunting ID dalam iframe di bawah #contoh-video.
-  -->
 </head>
 <body class="font-sans bg-slate-50 text-slate-800 antialiased">
   <div class="min-h-screen">
-    <!-- Bar mini KPI -->
+    
     <div class="sticky top-0 z-40 border-b border-amber-200/80 bg-parchment/95 backdrop-blur-sm">
       <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-4 py-2 text-sm">
         <p class="text-slate-700">
           <span class="font-semibold text-amber-800">NotebookLM</span>
           — sokongan pendigitalan PdPc anda
         </p>
-        <!-- REPLACE: GOOGLE_FORM_URL — pautan borang maklum balas / pendaftaran -->
+        
         <a
           href="#"
           class="shrink-0 rounded-full border border-amber-600 bg-white px-3 py-1 font-medium text-amber-800 transition hover:bg-amber-50"
-          title="Tukar href kepada URL borang sebenar — jangan guna target=_blank dengan #"
         >Borang maklum balas</a>
       </div>
     </div>
 
     <main class="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pt-12">
-      <!-- Hero -->
+      
       <header class="relative overflow-hidden rounded-2xl border border-amber-100 bg-gradient-to-br from-parchment via-white to-slate-50 px-6 py-12 shadow-sm sm:px-10 sm:py-16">
         <div class="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-amber-200/30 blur-3xl" aria-hidden="true"></div>
         <div class="relative grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-12">
@@ -103,7 +96,7 @@
               <a href="#prompt-cheat" class="font-medium text-amber-800 underline decoration-amber-400 underline-offset-4 transition hover:text-amber-900">Ambil 3 prompt percuma (salin terus)</a>
             </p>
           </div>
-          <!-- REPLACE: HERO_MOCKUP_IMG — pilihan: ganti keseluruhan div mockup dengan <img src="..." alt="..." class="w-full rounded-xl shadow-lg" /> -->
+          
           <div
             class="mx-auto w-full max-w-lg lg:mx-0 lg:max-w-none"
             aria-label="Ilustrasi konsep NotebookLM dengan buku teks — bukan muka surat sebenar"
@@ -141,7 +134,7 @@
         </div>
       </header>
 
-      <!-- Masalah vs Penyelesaian -->
+      
       <section id="masalah" class="mt-16 scroll-mt-24">
         <div class="text-center">
           <h2 class="font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Dari Tekanan… kepada Tenang</h2>
@@ -172,7 +165,7 @@
         </div>
       </section>
 
-      <!-- Ciri-ciri -->
+      
       <section id="ciri" class="mt-20 scroll-mt-24">
         <div class="text-center">
           <h2 class="font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Ciri yang Membuatkan Guru Sejarah Bersemangat</h2>
@@ -192,7 +185,7 @@
             <p class="mt-3 text-sm leading-relaxed text-slate-700">
               Tukar topik yang “berat” — misalnya Nasionalisme — menjadi audio ringkas bergaya siaran. Murid boleh dengar seperti podcast, bukan sekadar membaca perenggan panjang.
             </p>
-            <!-- REPLACE: PODCAST_UI_IMG — pilihan: ganti div di bawah dengan <img src="..." alt="Audio Overview" class="mt-4 w-full rounded-lg border" /> -->
+            
             <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3" aria-hidden="true">
               <div class="flex items-center gap-3">
                 <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-600 text-white shadow-sm">
@@ -230,7 +223,7 @@
         </div>
       </section>
 
-      <!-- Testimoni (rekaan — gantikan dengan petikan sebenar apabila tersedia) -->
+      
       <section id="testimoni" class="mt-20 scroll-mt-24" aria-labelledby="testimoni-heading">
         <div class="text-center">
           <h2 id="testimoni-heading" class="font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Apa Kata Rakan Sejawat</h2>
@@ -269,7 +262,7 @@
         </div>
       </section>
 
-      <!-- Tiga prompt siap guna -->
+      
       <section id="prompt-cheat" class="mt-20 scroll-mt-28 sm:scroll-mt-24" aria-labelledby="prompt-heading">
         <div class="text-center">
           <h2 id="prompt-heading" class="font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Tiga Prompt Sedia Pakai</h2>
@@ -308,7 +301,7 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
         </div>
       </section>
 
-      <!-- KPI & digitalisasi -->
+      
       <section id="kpi" class="mt-20 scroll-mt-24">
         <div class="rounded-2xl border border-slate-200 bg-slate-900 px-6 py-10 text-center text-slate-100 sm:px-10">
           <h2 class="font-serif text-xl font-bold text-white sm:text-2xl">Selaras dengan Aspirasi Digital &amp; Kualiti PdPc</h2>
@@ -321,7 +314,7 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
         </div>
       </section>
 
-      <!-- CTA + borang -->
+      
       <section id="cta" class="mt-20 scroll-mt-24">
         <div class="relative overflow-hidden rounded-2xl border-2 border-amber-400/80 bg-gradient-to-br from-amber-50 via-white to-slate-50 px-6 py-12 text-center shadow-lg sm:px-10">
           <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-200/20 via-transparent to-transparent" aria-hidden="true"></div>
@@ -333,18 +326,17 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
               <a href="tugasan.html" class="font-semibold text-amber-900 underline decoration-amber-500 underline-offset-2 hover:text-amber-950">halaman Tugasan</a>.
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
-              <!-- REPLACE: NOTEBOOKLM_URL — https://notebooklm.google.com -->
+              
               <a
                 href="https://notebooklm.google.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex w-full min-w-[200px] items-center justify-center rounded-xl bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-md transition hover:scale-[1.02] hover:bg-amber-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 sm:w-auto"
               >Buka NotebookLM</a>
-              <!-- REPLACE: GOOGLE_FORM_URL — tukar href kepada URL borang Google anda -->
+              
               <a
                 href="#"
                 class="inline-flex w-full min-w-[200px] items-center justify-center rounded-xl border-2 border-amber-700 bg-white px-8 py-4 text-base font-semibold text-amber-900 transition hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 sm:w-auto"
-                title="Tukar href kepada URL borang — elakkan target=_blank dengan # (buka tab kosong pada telefon)"
               >Isi borang pengesahan / maklum balas</a>
             </div>
             <p class="mt-6 text-xs text-slate-500">
@@ -354,7 +346,7 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
         </div>
       </section>
 
-      <!-- Contoh & Rujukan -->
+      
       <section id="contoh" class="mt-20 scroll-mt-24 pb-4">
         <div id="contoh-video" class="mx-auto mb-14 max-w-3xl scroll-mt-24">
           <h2 class="text-center font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Video rujukan NotebookLM</h2>
@@ -395,25 +387,25 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
         <div class="rounded-2xl border border-dashed border-amber-300 bg-amber-50/50 px-6 py-10 sm:px-8">
           <h2 class="text-center font-serif text-2xl font-bold text-slate-900">Contoh &amp; Rujukan</h2>
           <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-600">
-            Ruang untuk contoh bahan yang jabatan akan muat naik kemudian. Tukar <code class="rounded bg-white px-1.5 py-0.5 text-xs text-amber-900">href</code> di setiap butang kepada pautan Google Drive, Docs, atau video anda. Prompt siap salin ada di <a href="#prompt-cheat" class="font-medium text-amber-800 underline decoration-amber-400 underline-offset-2 hover:text-amber-900">Tiga Prompt Sedia Pakai</a>.
+            Ruang untuk contoh bahan rujukan jabatan. Butang di bawah akan dikemas kini dengan pautan ke bahan sebenar apabila tersedia. Prompt siap salin ada di <a href="#prompt-cheat" class="font-medium text-amber-800 underline decoration-amber-400 underline-offset-2 hover:text-amber-900">Tiga Prompt Sedia Pakai</a>.
           </p>
           <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <!-- REPLACE: Contoh Soalan KBAT — URL Drive/Docs -->
+            
             <a
               href="#"
               class="inline-flex items-center rounded-xl border-2 border-amber-600 bg-white px-5 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
             >Contoh Soalan KBAT</a>
-            <!-- REPLACE: Contoh Podcast — URL audio/YouTube -->
+            
             <a
               href="#"
               class="inline-flex items-center rounded-xl border-2 border-amber-600 bg-white px-5 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
             >Contoh Podcast</a>
-            <!-- REPLACE: Contoh RPH Ringkas — URL Docs -->
+            
             <a
               href="#"
               class="inline-flex items-center rounded-xl border-2 border-amber-600 bg-white px-5 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
             >Contoh RPH Ringkas</a>
-            <!-- REPLACE: Lampiran PDF — URL Drive -->
+            
             <a
               href="#"
               class="inline-flex items-center rounded-xl border-2 border-amber-600 bg-white px-5 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
