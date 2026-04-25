@@ -26,6 +26,7 @@
     };
   </script>
   <style>
+    html { scroll-behavior: smooth; }
     .task1-video-frame {
       position: relative;
       width: 100%;
@@ -43,22 +44,30 @@
       border: 0;
       border-radius: 0.75rem;
     }
+    /* Animasi untuk poll bar */
+    .poll-bar { transition: width 1s ease-out; }
   </style>
 </head>
-<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+<body class="font-sans bg-slate-50 text-slate-800 antialiased relative">
+  
+  <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="flex items-center gap-2 rounded-full bg-slate-800 px-5 py-3 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2">
+      <svg class="h-4 w-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      Tonton Webinar
+    </button>
+    <a href="https://sites.google.com/moe-dl.edu.my/aidelima/task-pensijilan" class="flex items-center gap-2 rounded-full bg-amber-600 px-5 py-3 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+      <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+      Dapatkan Sijil
+    </a>
+  </div>
+
   <div class="min-h-screen">
-    
     <div class="sticky top-0 z-40 border-b border-amber-200/80 bg-parchment/95 backdrop-blur-sm">
       <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-4 py-2 text-sm">
         <p class="text-slate-700">
           <span class="font-semibold text-amber-800">NotebookLM</span>
           — sokongan pendigitalan PdPc anda
         </p>
-        
-        <a
-          href="#"
-          class="shrink-0 rounded-full border border-amber-600 bg-white px-3 py-1 font-medium text-amber-800 transition hover:bg-amber-50"
-        >Borang maklum balas</a>
       </div>
     </div>
 
@@ -80,11 +89,11 @@
             </p>
             <div class="mt-8 flex flex-wrap items-center gap-4">
               <a
-                href="#contoh-video"
-                class="inline-flex items-center justify-center rounded-xl bg-amber-600 px-6 py-3.5 text-base font-semibold text-white shadow-md transition hover:scale-[1.02] hover:bg-amber-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-              >Video rujukan</a>
+                href="javascript:void(0);"
+                class="inline-flex items-center justify-center rounded-xl bg-amber-600 px-6 py-3.5 text-base font-semibold text-white shadow-md transition hover:scale-[1.02] hover:bg-amber-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 cursor-default"
+              >Tonton webinar</a>
               <a
-                href="tugasan.html"
+                href="https://sites.google.com/moe-dl.edu.my/aidelima/task-pensijilan"
                 class="inline-flex items-center justify-center rounded-xl border-2 border-amber-700 bg-white px-6 py-3.5 text-base font-semibold text-amber-900 shadow-sm transition hover:bg-amber-50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
               >Dapatkan sijil</a>
               <a
@@ -97,10 +106,7 @@
             </p>
           </div>
           
-          <div
-            class="mx-auto w-full max-w-lg lg:mx-0 lg:max-w-none"
-            aria-label="Ilustrasi konsep NotebookLM dengan buku teks — bukan muka surat sebenar"
-          >
+          <div class="mx-auto w-full max-w-lg lg:mx-0 lg:max-w-none" aria-label="Ilustrasi konsep NotebookLM dengan buku teks — bukan muka surat sebenar">
             <div class="rounded-t-xl border-[10px] border-slate-700 bg-slate-800 shadow-2xl ring-1 ring-slate-900/20">
               <div class="flex aspect-[16/10] gap-2 overflow-hidden rounded-sm bg-slate-200 p-2 sm:p-3">
                 <div class="flex w-[42%] flex-col justify-between rounded-md bg-gradient-to-br from-amber-800 via-amber-700 to-amber-900 p-2 text-white shadow-inner sm:p-3">
@@ -135,6 +141,63 @@
       </header>
 
       
+      <section id="poll-section" class="mt-16 scroll-mt-24">
+        <div class="mx-auto max-w-2xl rounded-2xl border border-amber-200 bg-white p-6 shadow-sm sm:p-8">
+          <div id="poll-question">
+            <h3 class="text-center font-serif text-xl font-bold text-slate-900">Undian Pantas: Apa cabaran utama anda mengajar Sejarah?</h3>
+            <p class="mt-2 text-center text-sm text-slate-500">Pilih satu untuk melihat apa kata rakan guru yang lain.</p>
+            <div class="mt-6 space-y-3">
+              <button onclick="showPollResults(0)" class="w-full rounded-xl border border-slate-200 px-5 py-3.5 text-left text-sm font-medium text-slate-700 transition hover:border-amber-400 hover:bg-amber-50">
+                A. Murid sukar fokus membaca teks panjang
+              </button>
+              <button onclick="showPollResults(1)" class="w-full rounded-xl border border-slate-200 px-5 py-3.5 text-left text-sm font-medium text-slate-700 transition hover:border-amber-400 hover:bg-amber-50">
+                B. Menghabiskan terlalu banyak masa membina soalan KBAT & skema
+              </button>
+              <button onclick="showPollResults(2)" class="w-full rounded-xl border border-slate-200 px-5 py-3.5 text-left text-sm font-medium text-slate-700 transition hover:border-amber-400 hover:bg-amber-50">
+                C. Kekurangan idea merancang aktiviti RPH yang menarik
+              </button>
+            </div>
+          </div>
+
+          <div id="poll-results" class="hidden">
+            <h3 class="text-center font-serif text-xl font-bold text-slate-900">Terima kasih atas undian anda!</h3>
+            <p class="mt-2 text-center text-sm text-slate-600">Nampaknya anda tidak berseorangan. Inilah cabaran yang dikongsi oleh rakan guru kita:</p>
+            <div class="mt-6 space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                  <span>Murid sukar fokus membaca</span>
+                  <span>42%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                  <div class="bg-amber-400 h-2.5 rounded-full poll-bar" style="width: 0%" data-target="42%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                  <span>Masa membina soalan KBAT</span>
+                  <span>38%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                  <div class="bg-amber-500 h-2.5 rounded-full poll-bar" style="width: 0%" data-target="38%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                  <span>Idea perancangan RPH</span>
+                  <span>20%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                  <div class="bg-amber-300 h-2.5 rounded-full poll-bar" style="width: 0%" data-target="20%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-6 rounded-lg bg-emerald-50 border border-emerald-100 p-4 text-center">
+              <p class="text-sm text-emerald-800 font-medium">Berita baik: NotebookLM direka tepat untuk menyelesaikan ketiga-tiga masalah di atas. Teruskan membaca 👇</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="masalah" class="mt-16 scroll-mt-24">
         <div class="text-center">
           <h2 class="font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Dari Tekanan… kepada Tenang</h2>
@@ -165,7 +228,6 @@
         </div>
       </section>
 
-      
       <section id="ciri" class="mt-20 scroll-mt-24">
         <div class="text-center">
           <h2 class="font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Ciri yang Membuatkan Guru Sejarah Bersemangat</h2>
@@ -185,7 +247,6 @@
             <p class="mt-3 text-sm leading-relaxed text-slate-700">
               Tukar topik yang “berat” — misalnya Nasionalisme — menjadi audio ringkas bergaya siaran. Murid boleh dengar seperti podcast, bukan sekadar membaca perenggan panjang.
             </p>
-            
             <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3" aria-hidden="true">
               <div class="flex items-center gap-3">
                 <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-600 text-white shadow-sm">
@@ -223,55 +284,26 @@
         </div>
       </section>
 
-      
-      <section id="testimoni" class="mt-20 scroll-mt-24" aria-labelledby="testimoni-heading">
-        <div class="text-center">
-          <h2 id="testimoni-heading" class="font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Apa Kata Rakan Sejawat</h2>
-          <p class="mx-auto mt-3 max-w-2xl text-sm text-slate-500">
-            Petikan rekaan untuk tujuan ilustrasi — gantikan dengan testimoni sebenar apabila tersedia.
-          </p>
-        </div>
-        <div class="mt-10 grid gap-6 md:grid-cols-3">
-          <figure class="flex flex-col rounded-xl border border-amber-100 bg-white p-6 shadow-sm">
-            <blockquote class="flex-1 text-sm leading-relaxed text-slate-700">
-              <p>“Dulu saya habiskan malam menyediakan soalan struktur. Sekarang muat naik PDF, semak cadangan KBAT dalam NotebookLM, kemudian sesuaikan — kelas saya dapat fokus pada perbincangan.”</p>
-            </blockquote>
-            <figcaption class="mt-4 border-t border-slate-100 pt-4 text-xs text-slate-600">
-              <span class="font-semibold text-slate-900">Cik A., Perak</span>
-              <span class="block text-slate-500">Guru Sejarah, Menengah</span>
-            </figcaption>
-          </figure>
-          <figure class="flex flex-col rounded-xl border border-amber-100 bg-white p-6 shadow-sm">
-            <blockquote class="flex-1 text-sm leading-relaxed text-slate-700">
-              <p>“Murid saya di sekolah rendah kurang minat baca teks tebal. Audio Overview jadikan topik seperti cerita radio — mereka minta ulang.”</p>
-            </blockquote>
-            <figcaption class="mt-4 border-t border-slate-100 pt-4 text-xs text-slate-600">
-              <span class="font-semibold text-slate-900">En. R., Johor</span>
-              <span class="block text-slate-500">Guru Sejarah, Rendah</span>
-            </figcaption>
-          </figure>
-          <figure class="flex flex-col rounded-xl border border-amber-100 bg-white p-6 shadow-sm">
-            <blockquote class="flex-1 text-sm leading-relaxed text-slate-700">
-              <p>“Bukan gimik IT. Ia alat yang jelas jimat masa untuk RPH dan bahan PdPc — asalkan kita semak output sebelum guna di kelas.”</p>
-            </blockquote>
-            <figcaption class="mt-4 border-t border-slate-100 pt-4 text-xs text-slate-600">
-              <span class="font-semibold text-slate-900">Pn. S., Selangor</span>
-              <span class="block text-slate-500">Guru Sejarah, Menengah</span>
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      
       <section id="prompt-cheat" class="mt-20 scroll-mt-28 sm:scroll-mt-24" aria-labelledby="prompt-heading">
         <div class="text-center">
           <h2 id="prompt-heading" class="font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Tiga Prompt Sedia Pakai</h2>
           <p class="mx-auto mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
             Tampal terus dalam NotebookLM selepas muat naik sumber (buku teks / nota PDF). Semak dan sesuaikan sebelum guna di kelas.
           </p>
-          <p class="mx-auto mt-2 max-w-xl text-xs text-slate-500">Tip: Pilih teks dalam kotak dan salin (<kbd class="rounded bg-slate-200 px-1 py-0.5 font-sans text-[10px]">Ctrl</kbd>+<kbd class="rounded bg-slate-200 px-1 py-0.5 font-sans text-[10px]">C</kbd>).</p>
         </div>
-        <div class="mt-10 space-y-6">
+
+        <div class="mx-auto mt-8 max-w-3xl flex flex-col sm:flex-row items-center justify-between rounded-xl bg-amber-50 border border-amber-200 p-5 shadow-sm">
+          <div class="text-center sm:text-left">
+            <h3 class="font-serif text-lg font-semibold text-slate-900">Belum ada nota untuk diuji?</h3>
+            <p class="text-sm text-slate-600 mt-1">Gunakan set nota ringkas (PDF) ini untuk pandu uji prompt di bawah bersama NotebookLM.</p>
+          </div>
+          <a href="#" target="_blank" class="mt-4 sm:mt-0 shrink-0 inline-flex items-center gap-2 rounded-lg bg-amber-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-700">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            Muat Turun Nota PDF
+          </a>
+        </div>
+
+        <div class="mt-8 space-y-6">
           <div class="rounded-xl border border-amber-200 bg-white p-5 shadow-sm">
             <h3 class="font-serif text-lg font-semibold text-slate-900">1. Jana soalan KBAT + skema ringkas</h3>
             <pre class="mt-3 max-h-64 overflow-auto rounded-lg bg-slate-50 p-4 text-left text-xs leading-relaxed text-slate-800 sm:text-sm whitespace-pre-wrap font-sans border border-slate-100">Berdasarkan dokumen yang dimuat naik (buku teks Sejarah / nota), hasilkan 5 soalan KBAT (HOTS) untuk tajuk [TAJUK / BAB]. Untuk setiap soalan:
@@ -301,20 +333,15 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
         </div>
       </section>
 
-      
       <section id="kpi" class="mt-20 scroll-mt-24">
         <div class="rounded-2xl border border-slate-200 bg-slate-900 px-6 py-10 text-center text-slate-100 sm:px-10">
           <h2 class="font-serif text-xl font-bold text-white sm:text-2xl">Selaras dengan Aspirasi Digital &amp; Kualiti PdPc</h2>
           <p class="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
             Mengintegrasikan alat bantu seperti NotebookLM dalam persediaan pengajaran menyokong <strong class="font-semibold text-amber-200">inisiatif pendigitalan pendidikan</strong> dan boleh membantu memperkukuh dokumentasi PdPc — sebagai contoh penggunaan sumber digital dan penjanaan bahan berasaskan data sumber yang anda pilih sendiri.
           </p>
-          <p class="mx-auto mt-3 max-w-2xl text-xs text-slate-400">
-            Penyataan ini bersifat naratif nilai untuk rujukan perancangan; ikut garis panduan dan kelulusan institusi masing-masing.
-          </p>
         </div>
       </section>
 
-      
       <section id="cta" class="mt-20 scroll-mt-24">
         <div class="relative overflow-hidden rounded-2xl border-2 border-amber-400/80 bg-gradient-to-br from-amber-50 via-white to-slate-50 px-6 py-12 text-center shadow-lg sm:px-10">
           <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-200/20 via-transparent to-transparent" aria-hidden="true"></div>
@@ -323,36 +350,26 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
             <p class="mx-auto mt-4 max-w-xl text-slate-700">
               Mulakan dengan satu buku teks PDF atau nota topik. Lihat sendiri bagaimana NotebookLM mempercepat persediaan anda — kemudian isi borang ringkas supaya jabatan dapat merekod penyertaan dan sokongan latihan ini <span class="whitespace-nowrap">(KPI kami).</span>
               Pensijilan DELIMa &amp; kuiz empat mata pelajaran ada di
-              <a href="tugasan.html" class="font-semibold text-amber-900 underline decoration-amber-500 underline-offset-2 hover:text-amber-950">halaman Tugasan</a>.
+              <a href="https://sites.google.com/moe-dl.edu.my/aidelima/task-pensijilan" class="font-semibold text-amber-900 underline decoration-amber-500 underline-offset-2 hover:text-amber-950">halaman Tugasan</a>.
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
-              
-              <a
-                href="https://notebooklm.google.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex w-full min-w-[200px] items-center justify-center rounded-xl bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-md transition hover:scale-[1.02] hover:bg-amber-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 sm:w-auto"
-              >Buka NotebookLM</a>
-              
-              <a
-                href="#"
-                class="inline-flex w-full min-w-[200px] items-center justify-center rounded-xl border-2 border-amber-700 bg-white px-8 py-4 text-base font-semibold text-amber-900 transition hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 sm:w-auto"
-              >Isi borang pengesahan / maklum balas</a>
-            </div>
-            <p class="mt-6 text-xs text-slate-500">
-              Tip: Simpan pautan borang ini untuk laporan penyertaan jabatan anda.
-            </p>
+  <a
+    href="https://d2.delima.edu.my/login"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex w-full min-w-[200px] items-center justify-center rounded-xl bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-md transition hover:scale-[1.02] hover:bg-amber-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 sm:w-auto"
+  >Buka NotebookLM</a>
+</div>
           </div>
         </div>
       </section>
 
-      
       <section id="contoh" class="mt-20 scroll-mt-24 pb-4">
         <div id="contoh-video" class="mx-auto mb-14 max-w-3xl scroll-mt-24">
           <h2 class="text-center font-serif text-2xl font-bold text-slate-900 sm:text-3xl">Video rujukan NotebookLM</h2>
           <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-600">
-            Dua video ringkas untuk rujukan — bukan lagi tugasan pensijilan. Untuk DELIMa, tangkapan skrin dan kuiz (BM / BI / Matematik / Sejarah), buka
-            <a href="tugasan.html" class="font-medium text-amber-800 underline decoration-amber-400 underline-offset-2 hover:text-amber-900">halaman Tugasan &amp; pensijilan</a>.
+            Dua video ringkas ini disediakan untuk membantu anda memulakan langkah pertama. Untuk menyertai kuiz dan mendapatkan sijil, sila layari 
+            <a href="https://sites.google.com/moe-dl.edu.my/aidelima/task-pensijilan" class="font-medium text-amber-800 underline decoration-amber-400 underline-offset-2 hover:text-amber-900">halaman Tugasan &amp; pensijilan</a>.
           </p>
           <div class="mt-10 space-y-10">
             <div class="space-y-2">
@@ -383,35 +400,6 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
             </div>
           </div>
         </div>
-
-        <div class="rounded-2xl border border-dashed border-amber-300 bg-amber-50/50 px-6 py-10 sm:px-8">
-          <h2 class="text-center font-serif text-2xl font-bold text-slate-900">Contoh &amp; Rujukan</h2>
-          <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-600">
-            Ruang untuk contoh bahan rujukan jabatan. Butang di bawah akan dikemas kini dengan pautan ke bahan sebenar apabila tersedia. Prompt siap salin ada di <a href="#prompt-cheat" class="font-medium text-amber-800 underline decoration-amber-400 underline-offset-2 hover:text-amber-900">Tiga Prompt Sedia Pakai</a>.
-          </p>
-          <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-            
-            <a
-              href="#"
-              class="inline-flex items-center rounded-xl border-2 border-amber-600 bg-white px-5 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-            >Contoh Soalan KBAT</a>
-            
-            <a
-              href="#"
-              class="inline-flex items-center rounded-xl border-2 border-amber-600 bg-white px-5 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-            >Contoh Podcast</a>
-            
-            <a
-              href="#"
-              class="inline-flex items-center rounded-xl border-2 border-amber-600 bg-white px-5 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-            >Contoh RPH Ringkas</a>
-            
-            <a
-              href="#"
-              class="inline-flex items-center rounded-xl border-2 border-amber-600 bg-white px-5 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-            >Lampiran PDF</a>
-          </div>
-        </div>
       </section>
     </main>
 
@@ -421,7 +409,21 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
       </div>
     </footer>
   </div>
+  
   <script>
+    // Fungsi untuk Poll Interaktif
+    function showPollResults(selectedIndex) {
+      document.getElementById('poll-question').style.display = 'none';
+      document.getElementById('poll-results').style.display = 'block';
+      
+      setTimeout(() => {
+        const bars = document.querySelectorAll('.poll-bar');
+        bars.forEach(bar => {
+          bar.style.width = bar.getAttribute('data-target');
+        });
+      }, 100);
+    }
+
     (function () {
       function revealAndScrollToId(id) {
         if (!id) return;
@@ -440,7 +442,11 @@ Cadangkan satu aktiviti bilik darjah (15 minit) berasaskan dokumen ini untuk mur
           var a = e.target.closest && e.target.closest('a[href^="#"]');
           if (!a) return;
           var raw = (a.getAttribute('href') || '').trim();
-          if (raw.length < 2 || raw === '#') return;
+          
+          // Memastikan link yang kosong tidak diproses oleh skrip scroll
+          if (raw === '#' || raw === '') return; 
+          
+          if (raw.length < 2) return;
           var id = decodeURIComponent(raw.slice(1));
           if (!document.getElementById(id)) return;
           e.preventDefault();
